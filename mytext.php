@@ -1,4 +1,4 @@
-<html><body bgcolor="red">
+<html><body bgcolor="green">
 
 <table width=200% heigt=200%>
 <tr><tg align="center">

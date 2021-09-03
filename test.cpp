@@ -3,19 +3,35 @@
 #include <windows.h>
 #include <tchar.h>
 #include <mem.h>
+#define IDB_Button1 1 // Идентификатор кнопки Button1
+#define IDB_Button2 2 // Идентификатор кнопки Buttton2
+#define IDB_Button3 3 // Идентификатор кнопки Buttton2
+#define IDB_Button4 4 // Идентификатор кнопки Buttton2
+#define IDB_Button5 5 // Идентификатор кнопки Buttton2
+#define IDB_Button6 6 // Идентификатор кнопки Buttton2
+
+#define ID_EDIT1 1   // Идентификатор редактора текста
+#define ID_EDIT2 2   // Идентификатор редактора текста
+
+
+
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 TCHAR WinName[] = _T("MainFrame");
 int APIENTRY _tWinMain(HINSTANCE This, // Дескриптор текущего приложения
-HINSTANCE Prev,
-// В современных системах всегда 0
-LPTSTR cmd,
-// Командная строка
-int mode)
-// Режим отображения окна
+HINSTANCE Prev,// В современных системах всегда 0
+LPTSTR cmd,// Командная строка
+int mode)// Режим отображения окна
 {
-HWND hWnd;
-// Дескриптор главного окна программы
+     HWND hWnd;// Дескриптор главного окна программы
+
+     HWND hSt1, hSt2, hSt3, hSt4; // Идентификаторы органов управления
+	                              // статических элементов
+
+
+
+
+
 MSG msg;
 // Структура для хранения сообщения
 WNDCLASS wc; // Класс окна

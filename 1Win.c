@@ -61,11 +61,11 @@ LRESULT CALLBACK MainWinProc(HWND hw,UINT msg,WPARAM wp,LPARAM lp) {
 
 // Когда главное окно приложения получает
     // фокус ввода, отдаем фокус редактору текста
-   // case WM_SETFOCUS:
-   // {
+    case WM_SETFOCUS:
+    {
     //  SetFocus(hEdit);
-     // return 0;
-   // }
+      return 0;
+    }
 
   case WM_COMMAND:
    /* нажата наша кнопочка? */

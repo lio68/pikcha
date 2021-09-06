@@ -73,11 +73,11 @@ int _stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 // Когда главное окно приложения получает
     // фокус ввода, отдаем фокус редактору текста
-   // case WM_SETFOCUS
+   //case WM_SETFOCUS
    // {
      // SetFocus(hEdit1);
-    //  return 0;
-    //}
+     // return 0;
+   // }
 
 
  // Создаем редактор текста с индефикатором hEdit2
@@ -98,6 +98,18 @@ int _stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     WS_CHILD | WS_VISIBLE | SS_BLACKFRAME,
     20, 140, 180, 20,
     hWnd2, (HMENU)-1, hInstance, NULL);
+
+
+      int cTextLength;   //длина текста
+
+  cTextLength = GetWindowTextLength(hEdit1);//получить длину текста
+
+  //char * textS =new char [cTextLength + 1];//динамический выделяет буфер
+
+  GetWindowText(hEdit1, textS, cTextLength + 1); //получение текста из edit 
+                                        // и сохранение его в буферной переменной textS
+   
+
 
 
 	HDC hDC = GetDC(hWnd1);
@@ -127,6 +139,8 @@ LRESULT _stdcall WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
 	{
+
+
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;

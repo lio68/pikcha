@@ -3,9 +3,12 @@
 // Управление стандартной кнопкой
 // ----------------------------------------
 
-#define STRICT
+//#define STRICT
 #include <windows.h>
 #include <mem.h>
+#include <tchar.h>
+
+
 
 // Идентификаторы кнопок
 #define IDB_Button1 1
@@ -13,6 +16,7 @@
 #define IDB_Button3 3
 #define IDB_Button4 4
 #define IDB_Button5 5
+#define ID_EDIT     6
 
 // Прототипы функций
 BOOL InitApp(HINSTANCE);
@@ -26,6 +30,10 @@ char const szWindowTitle[] = "Button Control Demo";
 
 // Идентификаторы кнопок
 HWND hButton1, hButton2, hButton3, hButton4, hButton5;
+
+// Идентификаторы Edit
+HWND hEdit;  
+
 
 // =====================================
 // Функция WinMain
@@ -69,7 +77,7 @@ WinMain(HINSTANCE hInstance,
   ShowWindow(hwnd, nCmdShow);
   UpdateWindow(hwnd);
 
-  // Создаем пять кнопок
+  // Создаем пять кнопок и индефикаторы для них hButton
   hButton1 = CreateWindow("button", "Button 1",
     WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
     20, 20, 90, 30,
@@ -94,6 +102,15 @@ WinMain(HINSTANCE hInstance,
     WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
     20, 180, 90, 30, hwnd,
     (HMENU) IDB_Button5, hInstance, NULL);
+
+     // Создаем редактор текста
+	 //
+  hEdit = CreateWindow("edit", NULL,
+     WS_CHILD | WS_VISIBLE | WS_BORDER |
+     ES_LEFT,
+     250, 20, 300, 30,
+     hwnd, (HMENU) ID_EDIT, hInstance, NULL);
+
 
   // Увеличиваем горизонтальный размер
   // первой кнопки
@@ -134,7 +151,7 @@ InitApp(HINSTANCE hInstance)
   wc.hInstance = hInstance;
   wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
   wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-  wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+  wc.hbrBackground = (HBRUSH)(COLOR_WINDOW +23 );
   wc.lpszMenuName = (LPSTR)NULL;
   wc.lpszClassName = (LPSTR)szClassName;
 
@@ -153,6 +170,14 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
   switch (msg)
   {
+    // Когда главное окно приложения получает
+    // фокус ввода, отдаем фокус редактору текста
+    case WM_SETFOCUS:
+    {
+      SetFocus(hEdit);
+      return 0;
+    }
+
     // Сообщение приходит, когда вы нажимаете
     // на одну из двух созданных кнопок
     case WM_COMMAND:
@@ -161,14 +186,18 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
       // сообщение
       if(wParam == IDB_Button1)
       {
-          MessageBox(hwnd, "Нажата кнопка Button 1",
+          MessageBox(hwnd,"Нажата кнопка Button 1",
           "Message WM_COMMAND",MB_OK);
       }
       // Если нажата вторая кнопка,
       // переводим первую кнопку в нажатое состояние
       else if(wParam == IDB_Button2)
       {
-        SendMessage(hButton1, BM_SETSTATE, TRUE, 0L);
+          SendMessage(hButton1, BM_SETSTATE, TRUE, 0L);
+
+          MessageBox(hwnd," Push Button 1",
+          "Message WM_COMMAND",MB_OK);
+
       }
       // Если нажата третья кнопка,
       // возвращаем первую кнопку в исходное состояние

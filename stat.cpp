@@ -36,6 +36,7 @@ WinMain(HINSTANCE hInstance,
 
   // Идентификаторы органов управления
   HWND hSt1, hSt2, hSt3, hSt4;
+  HWND hEdit1,hEdit2;
 
   // Инициализируем приложение
   if(!InitApp(hInstance))
@@ -46,7 +47,7 @@ WinMain(HINSTANCE hInstance,
   //
   hwnd = CreateWindow(
     szClassName,         // имя класса окна
-    _T("Кот"),       // заголовок окна
+    _T("Папа"),       // заголовок окна
     WS_OVERLAPPEDWINDOW, // стиль окна
     CW_USEDEFAULT,       // задаем размеры и расположение
     CW_USEDEFAULT,       // окна, принятые по умолчанию 

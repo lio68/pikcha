@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <tchar.h>
 
 LRESULT CALLBACK MainWinProc(HWND,UINT,WPARAM,LPARAM);
 #define ID_MYBUTTON 1    /* идентификатор для кнопки внутри главного окна */

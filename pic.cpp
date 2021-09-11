@@ -22,12 +22,12 @@ int APIENTRY WinMain(HINSTANCE hInstance,
   // вычисление координат центра экрана
   RECT screen_rect;
   GetWindowRect(GetDesktopWindow(),&screen_rect); // разрешение экрана
-  int x = screen_rect.right / 2 - 150;
-  int y = screen_rect.bottom / 2 - 75;
+  int x = screen_rect.right / 2 - 450;
+  int y = screen_rect.bottom / 2 - 430;
 
   // создание диалогового окна
   HWND hWnd = CreateWindow(lpzClass, TEXT("Dialog Window"), 
-    WS_OVERLAPPEDWINDOW | WS_VISIBLE, x, y, 300, 150, NULL, NULL, 
+    WS_OVERLAPPEDWINDOW | WS_VISIBLE, x, y, 900, 600, NULL, NULL, 
     hInstance, NULL);
 
   // если окно не создано, описатель будет равен 0
@@ -76,7 +76,7 @@ LRESULT CALLBACK WndProc(
   {
   case WM_LBUTTONUP:
      // реакция на сообщение
-    MessageBox(hWnd, TEXT("Вы кликнули!"), TEXT("событие"), 0);
+    MessageBox(hWnd, TEXT(" Вы кликнули!"), TEXT("событие"), 0);
     break;
   case WM_DESTROY:
     PostQuitMessage(0);  // реакция на сообщение

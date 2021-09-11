@@ -5,9 +5,6 @@
 #define STRICT
 #include <windows.h>
 #include <mem.h>
-#include <tchar.h>
-
-
 
 // Идентификатор редактора текста
 #define ID_EDIT   1
@@ -127,9 +124,6 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
   // Идентификатор кнопки
   static HWND hButton;
 
-  //Идентификатор статического элемента
-  static HWND hSt1 , hSt2;
-
   switch (msg)
   {
     case WM_CREATE:
@@ -138,7 +132,7 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
       hEdit = CreateWindow("edit", NULL,
          WS_CHILD | WS_VISIBLE | WS_BORDER |
          ES_LEFT,
-         200, 30, 300, 30,
+         30, 30, 300, 30,
          hwnd, (HMENU) ID_EDIT, hInst, NULL);
 
       // Создаем кнопку
@@ -148,18 +142,6 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
          30, 80, 100, 30,
          hwnd, (HMENU) ID_BUTTON, hInst, NULL);
 
-	  //Создаём статические элементы hSt1 , hSt2
-     hSt1 = CreateWindow("static", "Input Text this hEdit: ",
-         WS_CHILD | WS_VISIBLE | SS_CENTER , //| WS_BORDER , //| SS_BLACKRECT,
-        30, 30, 150, 30,
-         hwnd, (HMENU)-1, hInst, NULL);
-
-     hSt2 = CreateWindow("static", "..... ",
-         WS_CHILD | WS_VISIBLE | SS_CENTER , //| WS_BORDER , //| SS_BLACKRECT,
-        200, 80, 300, 30,
-         hwnd, (HMENU)-1, hInst, NULL);
-
-
       return 0;
     }
 
@@ -168,7 +150,7 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_SETFOCUS:
     {
       SetFocus(hEdit);
-      return 0;
+      retrn 0;
     }
 
     case WM_COMMAND:
@@ -190,11 +172,9 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
          BYTE chBuff[80];
          WORD cbText;
 
-         // З аписываем в первое слово буфера
+         // Записываем в первое слово буфера
          // значение размера буфера в байтах
          * (WORD *) chBuff = sizeof (chBuff) - 1;
-		
-		// char sig[100];
 
          // Получаем от редактора текста содержимое
          // первой строки. Функция возвращает количество
@@ -203,23 +183,17 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
            (LPARAM)(LPSTR)chBuff);
 
          // Закрываем буфер двоичным нулем
-         //chBuff[cbText] = '\0';
+         chBuff[cbText] = '\0';
 
          // Выводим содержимое буфера на экран
-		 GetWindowText( chBuff, sig,100 );
-
-          SetWindowText( hSt2, sig,100 );
-
-
-         MessageBox(hwnd, (LPSTR)chBuff, szWindowTitle, MB_OK );
-
-		 
-	  }
+        // MessageBoxA(hwnd, chBuff,
+        // szWindowTitle, MB_OK);
+      }
       return 0;
     }
 
     case WM_PAINT:
- {
+    {
       HDC hdc;
       PAINTSTRUCT ps;
 
@@ -227,8 +201,8 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
       hdc = BeginPaint(hwnd, &ps);
 
       // Выводим текстовую строку
-     // TextOut(hdc, 30, 10,
-       // "Введите строку и нажмите кнопку 'OK'", 36);
+      TextOut(hdc, 30, 10,
+        "Введите строку и нажмите кнопку 'OK'", 36);
 
       // Отдаем индекс контекста устройства
       EndPaint(hwnd, &ps);

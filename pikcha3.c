@@ -1,7 +1,7 @@
 #include <windows.h>
 #define IDB_Button1 1 // Идентификатор кнопки Button1
 #define IDB_Button2 2 // Идентификатор кнопки Buttton2
-#define ID_EDIT 1   // Идентификатор редактора текста
+#define ID_EDIT 3   // Идентификатор редактора текста
 
 
 LRESULT _stdcall WndProc(HWND hWnd, UINT massege, WPARAM wParam, LPARAM IParam);
@@ -81,7 +81,7 @@ int _stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
          WS_CHILD | WS_VISIBLE | WS_BORDER |
          ES_LEFT,
          20, 70, 100, 30,
-         hWnd1, (HMENU) ID_EDIT, hInstance, NULL);
+         hWnd2, (HMENU) ID_EDIT, hInstance, NULL);
 
  // Создаем редактор текста №3  в окне с id  hWnd1
       hEdit3 = CreateWindow("edit", NULL,

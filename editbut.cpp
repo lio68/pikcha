@@ -200,15 +200,15 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
          // первой строки. Функция возвращает количество
          // байт, скопированных в буфер
          cbText = SendMessage(hEdit, EM_GETLINE, 0,
-           (LPARAM)(LPSTR)chBuff);
+           (LPARAM) chBuff);
 
          // Закрываем буфер двоичным нулем
          //chBuff[cbText] = '\0';
 
          // Выводим содержимое буфера на экран
-		 GetWindowText( chBuff, sig,100 );
+		 //GetWindowText( chBuff, sig,100 );
 
-          SetWindowText( hSt2, sig,100 );
+          //SetWindowText( hSt2, sig,100 );
 
 
          MessageBox(hwnd, (LPSTR)chBuff, szWindowTitle, MB_OK );
@@ -230,7 +230,7 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
      // TextOut(hdc, 30, 10,
        // "Введите строку и нажмите кнопку 'OK'", 36);
 
-      // Отдаем индекс контекста устройства
+      // Отдаем индекс контекста устройства			
       EndPaint(hwnd, &ps);
       return 0;
     }

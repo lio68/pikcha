@@ -187,14 +187,14 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
       // Сообщение от кнопки
       else if(wParam == ID_BUTTON)
       {
-         BYTE chBuff[80];
+         LPSTR chBuff[100];
          WORD cbText;
 
          // З аписываем в первое слово буфера
          // значение размера буфера в байтах
          * (WORD *) chBuff = sizeof (chBuff) - 1;
 		
-		// char sig[100];
+	
 
          // Получаем от редактора текста содержимое
          // первой строки. Функция возвращает количество
@@ -203,12 +203,12 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
            (LPARAM) chBuff);
 
          // Закрываем буфер двоичным нулем
-         //chBuff[cbText] = '\0';
+         chBuff[cbText] = '\0';
 
-         // Выводим содержимое буфера на экран
-		 //GetWindowText( chBuff, sig,100 );
+         // Выводим содержимое буфера в статический элемент hSt2
+		
 
-          //SetWindowText( hSt2, sig,100 );
+          SetWindowTextA( hSt2,(LPSTR) chBuff);
 
 
          MessageBox(hwnd, (LPSTR)chBuff, szWindowTitle, MB_OK );
@@ -226,9 +226,11 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
       // Получаем индекс контекста устройства
       hdc = BeginPaint(hwnd, &ps);
 
+     //здесь можно вставить какие-нибудь функции рисования:
+
       // Выводим текстовую строку
-     // TextOut(hdc, 30, 10,
-       // "Введите строку и нажмите кнопку 'OK'", 36);
+    //  TextOutW(hdc, 30, 10,
+      //  "Введите строку и нажмите кнопку 'OK'", 36);
 
       // Отдаем индекс контекста устройства			
       EndPaint(hwnd, &ps);

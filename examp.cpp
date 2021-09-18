@@ -2,7 +2,7 @@
 // Редактор текста
 // ----------------------------------------
 
-#define STRICT
+
 #include <windows.h>
 #include <mem.h>
 
@@ -14,7 +14,7 @@
 
 // Прототипы функций
 BOOL InitApp(HINSTANCE);
-LRESULT CALLBACK _export WndProc(HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 // Имя класса окна
 char const szClassName[]   = "EditAppClass";
@@ -115,7 +115,7 @@ InitApp(HINSTANCE hInstance)
 // Функция WndProc
 // =====================================
 
-LRESULT CALLBACK _export
+LRESULT CALLBACK
 WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
   // Идентификатор редактора текста
@@ -150,7 +150,7 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_SETFOCUS:
     {
       SetFocus(hEdit);
-      retrn 0;
+      return 0;
     }
 
     case WM_COMMAND:
@@ -186,8 +186,8 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
          chBuff[cbText] = '\0';
 
          // Выводим содержимое буфера на экран
-        // MessageBoxA(hwnd, chBuff,
-        // szWindowTitle, MB_OK);
+         MessageBoxA(hwnd, (LPSTR)chBuff,
+          szWindowTitle, MB_OK);
       }
       return 0;
     }
@@ -201,8 +201,8 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
       hdc = BeginPaint(hwnd, &ps);
 
       // Выводим текстовую строку
-      TextOut(hdc, 30, 10,
-        "Введите строку и нажмите кнопку 'OK'", 36);
+      //TextOutA(hdc, 30, 10,
+       // "Введите строку и нажмите кнопку 'OK'", 36);
 
       // Отдаем индекс контекста устройства
       EndPaint(hwnd, &ps);

@@ -2,22 +2,27 @@
 // Редактор текста
 // ----------------------------------------
 
-#define STRICT
+
 #include <windows.h>
 #include <mem.h>
 #include <tchar.h>
+#include <iostream>
 
 
 
 // Идентификатор редактора текста
 #define ID_EDIT   1
 
+#define ID_EDIT2  2 
+
 // Идентификатор кнопки
-#define ID_BUTTON 2
+#define ID_BUTTON 3
+
+using namespace std;
 
 // Прототипы функций
 BOOL InitApp(HINSTANCE);
-LRESULT CALLBACK _export WndProc(HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK  WndProc(HWND, UINT, WPARAM, LPARAM);
 
 // Имя класса окна
 char const szClassName[]   = "EditAppClass";
@@ -118,11 +123,14 @@ InitApp(HINSTANCE hInstance)
 // Функция WndProc
 // =====================================
 
-LRESULT CALLBACK _export
+LRESULT CALLBACK 
 WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
   // Идентификатор редактора текста
   static HWND hEdit;
+
+  static HWND hEdit2;
+
 
   // Идентификатор кнопки
   static HWND hButton;
@@ -141,7 +149,14 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
          200, 30, 300, 30,
          hwnd, (HMENU) ID_EDIT, hInst, NULL);
 
-      // Создаем кнопку
+       hEdit2 = CreateWindow("edit", "hEdit2",
+         WS_CHILD | WS_VISIBLE | WS_BORDER |
+         ES_LEFT,
+         200, 70, 300, 30,
+         hwnd, (HMENU) ID_EDIT2, hInst, NULL);
+
+
+      // Создаем кнопку#include <iostream>
       hButton = CreateWindow("button", "OK",
          WS_CHILD | WS_VISIBLE |
          BS_PUSHBUTTON,
@@ -156,7 +171,7 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
      hSt2 = CreateWindow("static", "..... ",
          WS_CHILD | WS_VISIBLE | SS_CENTER , //| WS_BORDER , //| SS_BLACKRECT,
-        200, 80, 300, 30,
+        200, 110, 150, 30,
          hwnd, (HMENU)-1, hInst, NULL);
 
 
@@ -196,19 +211,26 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		
 	
 
-         // Получаем от редактора текста содержимое
+         //  Получаем от редактора текста содержимое
          // первой строки. Функция возвращает количество
          // байт, скопированных в буфер
          cbText = SendMessage(hEdit, EM_GETLINE, 0,
            (LPARAM) chBuff);
 
          // Закрываем буфер двоичным нулем
-         chBuff[cbText] = '\0';
+         //chBuff[cbText] = '\0';
 
-         // Выводим содержимое буфера в статический элемент hSt2
+         // Выводим содержимое буфера в статический элемент hSt2 и окно
 		
 
-          SetWindowTextA( hSt2,(LPSTR) chBuff);
+         SetWindowTextA( hSt2,(LPSTR) chBuff);
+
+         SetWindowTextA( hwnd,(LPSTR) chBuff);
+
+         SetWindowTextA( hEdit2,(LPSTR) chBuff);
+
+         cout << (LPSTR) chBuff;
+
 
 
          MessageBox(hwnd, (LPSTR)chBuff, szWindowTitle, MB_OK );

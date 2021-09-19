@@ -202,40 +202,63 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
       // Сообщение от кнопки
       else if(wParam == ID_BUTTON)
       {
-         LPSTR chBuff[100];
-         WORD cbText;
+        /*// Способ №1 по передаче данных из edit
+		 
+		   LPSTR chBuff[100];        
 
-         // З аписываем в первое слово буфера
+         // Записываем в первое слово буфера
          // значение размера буфера в байтах
          * (WORD *) chBuff = sizeof (chBuff) - 1;
-		
 	
 
          //  Получаем от редактора текста содержимое
          // первой строки. Функция возвращает количество
          // байт, скопированных в буфер
-         cbText = SendMessage(hEdit, EM_GETLINE, 0,
-           (LPARAM) chBuff);
-
-         // Закрываем буфер двоичным нулем
-         //chBuff[cbText] = '\0';
-
-         // Выводим содержимое буфера в статический элемент hSt2 и окно
-		
+         SendMessage(hEdit, EM_GETLINE, 0, (LPARAM) chBuff);
+         
+         // Выводим содержимое буфера в статический элемент hSt2 и окно	
 
          SetWindowTextA( hSt2,(LPSTR) chBuff);
 
          SetWindowTextA( hwnd,(LPSTR) chBuff);
 
-         SetWindowTextA( hEdit2,(LPSTR) chBuff);
+         SetWindowTextA( hEdit2,(LPSTR) chBuff); 
 
-         cout << (LPSTR) chBuff;
+         SetWindowTextA( hEdit,0); // устанавливаем "0" в hEdit
 
 
+         MessageBox(hwnd, (LPSTR)chBuff, szWindowTitle, MB_OK );*/
 
-         MessageBox(hwnd, (LPSTR)chBuff, szWindowTitle, MB_OK );
 
+		  //Способ №2 по передачи данных из edit
 		 
+             int cTextLength;   //длина текста
+
+        cTextLength = GetWindowTextLength(hEdit);//получить длину текста
+
+        wchar_t * textS = new wchar_t[cTextLength + 1];//динамический выделяет буфер
+
+
+ //получение текста из edit и сохранение его в буферной переменной textS
+
+ GetWindowTextW(hEdit, textS, cTextLength + 1);
+
+
+ //вывод текста в сообщение MessageBox
+ MessageBoxW(hwnd,(LPCWSTR) textS, textS, MB_OKCANCEL | MB_ICONEXCLAMATION);
+
+//вывод текста в hSt2 
+SetWindowTextW( hSt2,(LPCWSTR) textS);
+
+//вывод текста в hEdit2 
+SetWindowTextW( hEdit2,(LPCWSTR) textS);
+
+//Устанавливаем пустую строку в hEdit
+SetWindowTextW( hEdit,0);
+
+
+ delete[] textS;// освободить выделенную памят
+
 	  }
       return 0;
     }
@@ -251,8 +274,11 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
      //здесь можно вставить какие-нибудь функции рисования:
 
       // Выводим текстовую строку
-    //  TextOutW(hdc, 30, 10,
-      //  "Введите строку и нажмите кнопку 'OK'", 36);
+      TextOut(hdc, 30, 10, "Input button", 36);
+     // Rectangle(hdc, 50, 150, 200, 300);//рисуем прямоугольник
+      Ellipse(hdc,40,150,400,200);
+      Rectangle(hdc, 300, 150, 200, 300);//рисуем прямоугольник
+     // BOOL WINAPI Chord(hdc, 500, 150, 1000, 200);
 
       // Отдаем индекс контекста устройства			
       EndPaint(hwnd, &ps);

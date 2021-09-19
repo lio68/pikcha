@@ -276,9 +276,9 @@ SetWindowTextW( hEdit,0);
       // Выводим текстовую строку
       TextOut(hdc, 30, 10, "Input button", 36);
      // Rectangle(hdc, 50, 150, 200, 300);//рисуем прямоугольник
-      Ellipse(hdc,40,150,400,200);
-      Rectangle(hdc, 300, 150, 200, 300);//рисуем прямоугольник
-     // BOOL WINAPI Chord(hdc, 500, 150, 1000, 200);
+      Ellipse(hdc,40,150,200,300);
+      Rectangle(hdc, 300, 250, 200, 300);//рисуем прямоугольник
+     // BOOL WINAPI Chord(hdc, 500, 150, 1200, 200);
 
       // Отдаем индекс контекста устройства			
       EndPaint(hwnd, &ps);

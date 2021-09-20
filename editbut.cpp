@@ -109,7 +109,7 @@ InitApp(HINSTANCE hInstance)
   wc.hInstance = hInstance;
   wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
   wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-  wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+  wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 6);
   wc.lpszMenuName = (LPSTR)NULL;
   wc.lpszClassName = (LPSTR)szClassName;
 
@@ -156,7 +156,7 @@ WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
          hwnd, (HMENU) ID_EDIT2, hInst, NULL);
 
 
-      // Создаем кнопку#include <iostream>
+      // Создаем кнопку
       hButton = CreateWindow("button", "OK",
          WS_CHILD | WS_VISIBLE |
          BS_PUSHBUTTON,
@@ -273,12 +273,13 @@ SetWindowTextW( hEdit,0);
 
      //здесь можно вставить какие-нибудь функции рисования:
 
-      // Выводим текстовую строку
-      TextOut(hdc, 30, 10, "Input button", 36);
-     // Rectangle(hdc, 50, 150, 200, 300);//рисуем прямоугольник
-      Ellipse(hdc,40,150,200,300);
-      Rectangle(hdc, 300, 250, 200, 300);//рисуем прямоугольник
-     // BOOL WINAPI Chord(hdc, 500, 150, 1200, 200);
+   // SetЕTextColor( hdc,red );  
+      TextOutW(hdc, 30, 10,L" Convoy",8);//выводим текст      
+    Ellipse(hdc,40,150,200,300);//рисуем элипс
+      Rectangle(hdc, 400, 150, 200, 300);//рисуем прямоугольник
+   // MoveTo(hdc,120,80);//установка начальной позиции пера
+      LineTo( hdc,450,300);//рисуем линию
+     
 
       // Отдаем индекс контекста устройства			
       EndPaint(hwnd, &ps);

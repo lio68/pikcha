@@ -1,0 +1,9 @@
+  
+
+  ошибка: undefined reference to `_imp__TextOutA@20'
+
+
+  Для исправления нужно при компиляции добавить ключ -lgdi32
+
+
+ Пример: g++ editbut.cpp -lgdi32  -o editbut.exe 

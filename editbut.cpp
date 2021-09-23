@@ -109,7 +109,7 @@ InitApp(HINSTANCE hInstance)
   wc.hInstance = hInstance;
   wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
   wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-  wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 6);
+  wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 16);
   wc.lpszMenuName = (LPSTR)NULL;
   wc.lpszClassName = (LPSTR)szClassName;
 
@@ -272,14 +272,53 @@ SetWindowTextW( hEdit,0);
       hdc = BeginPaint(hwnd, &ps);
 
      //здесь можно вставить какие-нибудь функции рисования:
+	 
+	       /*fnStyle может принимать следующие значения:
 
-   // SetЕTextColor( hdc,red );  
-      TextOutW(hdc, 30, 10,L" Convoy",8);//выводим текст      
-    Ellipse(hdc,40,150,200,300);//рисуем элипс
-      Rectangle(hdc, 400, 150, 200, 300);//рисуем прямоугольник
-   // MoveTo(hdc,120,80);//установка начальной позиции пера
-      LineTo( hdc,450,300);//рисуем линию
-     
+              PS_SOLD - сплошная
+              PS_DASH - состоящая из точек
+              PS_DOT - состоящая из тире
+              PS_DASHDOT - "точка-тире"
+              PS_DASHDOTDOT - "тире-точка-точка-тире"
+              PS_NULL - невидимая
+              PS_INSIDEFRAME - обводка замкнутых фигур*/
+
+
+       HPEN hPen1, hPen2, hPen3; //объявляем сразу три объекта-пера
+
+       hPen1=CreatePen(PS_DASHDOT, 2, RGB(0,0,255)); //создаём всё три
+       hPen2=CreatePen(PS_DASH, 3, RGB(255,0,255));//третий параметр толщина пера
+       hPen3=CreatePen(PS_DOT, 6, RGB(0,128,256));//первый параметр вид линии
+
+	  SelectObject( hdc,GetStockObject(DC_BRUSH) );// функция GetStockObject() возвращает	дескиптор одного из стандартных объектов,в данном случае кисть(BRASH). 
+     //SelectObject устанавливает полученый объект в качестве текущего объекта.
+
+         SetDCBrushColor(hdc,RGB(255,20,255));//Устанавливает цвет для текущего оъекта
+      SelectObject(hdc, hPen1); //но в одним момент времени может быть только 1
+		     Ellipse(hdc,40,150,200,300);//рисуем элипс
+
+         SetDCBrushColor(hdc,RGB(105,200,25));//Устанавливает цвет для текущего оъекта
+      SelectObject(hdc, hPen2); //меняем перо
+             Rectangle(hdc, 400, 150, 250, 300);//рисуем прямоугольник
+
+         SetTextColor( hdc, RGB(25,150,165));
+      SelectObject(hdc, hPen3);//меняем перо
+             TextOutW(hdc, 30, 10,L" Convoy",8);//выводим текст
+
+
+    //SelectObject( hdc,GetStockObject(DC_PEN) );//устанавливает дескриптор кисть  текущмм
+             //SetDCPenColor(hdc,RGB(255,20,255));
+			 
+
+
+         MoveToEx(hdc,40,400,NULL);//установка начальной позиции пера
+
+             LineTo( hdc,750,400);//рисуем линию N1
+             LineTo( hdc,750,500);//рисуем линию N2
+             LineTo( hdc,100,500);//рисуем линию N3
+             LineTo( hdc,40 ,400);//рисуем линию N4 
+
+      //ValidateRect(hwnd, NULL);//обновляем окно (изменяет кол-во элементов)
 
       // Отдаем индекс контекста устройства			
       EndPaint(hwnd, &ps);
